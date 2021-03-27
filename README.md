@@ -54,3 +54,7 @@ Schematics/Builders/Generators Collection of Angular/React/Nest/Nx/GraphQL
   - 使用 createTreeWithEmptyWorkspace 来测试Generator
   
   - 使用@nrwl/nx-devkit提供的各种API
+
+  - `nx generate @nrwl/workspace:workspace-generator my-generator`
+
+  - `nx workspace-generator my-generator mylib`

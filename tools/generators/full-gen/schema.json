@@ -1,0 +1,74 @@
+{
+  "cli": "nx",
+  "id": "full-gen",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Library name",
+      "x-prompt": "What name would you like to use for the workspace generator?",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "stringOrBoolean": {
+      "oneOf": [
+        {
+          "type": "string",
+          "default": "mystring!"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
+    "innerObject": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "boolean"
+        }
+      }
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "complexXPrompt": {
+      "type": "string",
+      "default": "css",
+      "x-prompt": {
+        "message": "Which stylesheet format would you like to use?",
+        "type": "list",
+        "items": [
+          {
+            "value": "css",
+            "label": "CSS"
+          },
+          {
+            "value": "scss",
+            "label": "SASS(.scss)"
+          },
+          {
+            "value": "styl",
+            "label": "Stylus(.styl)"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ]
+      }
+    },
+    "currentProject": {
+      "type": "string",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+  },
+  "required": ["name", "stringOrBoolean"]
+}
