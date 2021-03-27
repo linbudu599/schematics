@@ -17,7 +17,7 @@ import { libraryGenerator } from '@nrwl/workspace/generators';
 // installPackagesTask 基于项目包管理器运行install
 // names 基于提供的name生成不同字符串 ？
 // getWorkspaceLayout 获取新的lib应该被生成到的位置
-// offestFromRoot 计算从根目录的偏移 常用于计算相对路径
+// offsetFromRoot 计算从根目录的偏移 常用于计算相对路径
 // stripIndents 移除多行字符串缩进
 // normalizePath 获取操作系统的文件分割符
 // joinPathFragments

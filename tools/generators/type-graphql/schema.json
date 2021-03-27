@@ -3,14 +3,93 @@
   "id": "type-graphql",
   "type": "object",
   "properties": {
-    "name": {
+    "objectTypeName": {
       "type": "string",
-      "description": "Library name",
+      "x-prompt": "What ObjectType name would you like to use?",
+      "description": "ObjectType Name",
       "$default": {
         "$source": "argv",
         "index": 0
       }
+    },
+    "extendInterfaceType": {
+      "type": "boolean",
+      "description": "Should  extend InterfaceType",
+      "x-prompt": "Extend InterfaceType?",
+      "alias": "i",
+      "default": false
+    },
+    "createDTO": {
+      "type": "boolean",
+      "x-prompt": "Create DTO from ObjectType?",
+      "description": "Create DTO",
+      "default": true
+    },
+    "createDTOBy": {
+      "type": "string",
+      "description": "Use Class-Validator or Joi to create DTO",
+      "x-prompt": {
+        "message": "Which lib would you like to use?",
+        "type": "list",
+        "items": [
+          { "value": "ClassValidator", "label": "Class-Validator" },
+          { "value": "Joi", "label": "@hapi/joi" }
+        ]
+      }
+    },
+    "useTypeormEntityDecorator": {
+      "type": "boolean",
+      "description": "Should add TypeORM @Entity() decorator",
+      "x-prompt": "Should add TypeORM @Entity() decorator",
+      "default": false
+    },
+    "extendTypeormBaseEntity": {
+      "type": "boolean",
+      "description": "Should extend TypeORM BaseEntity(Active Record)",
+      "x-prompt": "Should extend TypeORM BaseEntity(Active Record)",
+      "default": false
+    },
+    "lib": {
+      "type": "string",
+      "format": "path",
+      "x-prompt": "The lib name to create the file in",
+      "description": "The lib name to create the file in",
+      "default": ""
+    },
+    "createLibOnInexist": {
+      "type": "boolean",
+      "x-prompt": "Create lib to store the file if lib doesn't exist",
+      "description": "Create lib to store the file if lib doesn't exist",
+      "default": true
+    },
+    "props": {
+      "type": "array",
+      "TODO_x-prompt": "Schema Props",
+      "items": {
+        "type": "object",
+        "properties": {
+          "propName": {
+            "type": "string"
+          },
+          "propType": {
+            "type": "string",
+            "enum": ["string", "number", "boolean"]
+          },
+          "propNullable": {
+            "type": "boolean"
+          }
+        }
+      }
     }
   },
-  "required": ["name"]
+  "required": [
+    "objectTypeName",
+    "extendInterfaceType",
+    "createDTO",
+    "createDTOBy",
+    "useTypeormEntityDecorator",
+    "extendTypeormBaseEntity",
+    "lib",
+    "createLibOnInexist"
+  ]
 }
