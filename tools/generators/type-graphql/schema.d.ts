@@ -6,6 +6,12 @@ interface PropsMetadata {
   nullable: boolean;
 }
 
+interface AvaliableLib {
+  root: string;
+  sourceRoot: string;
+  libName: string;
+}
+
 export interface TypeGraphQLGeneratorSchema {
   objectTypeName: string;
   extendInterfaceType: boolean;
@@ -16,4 +22,5 @@ export interface TypeGraphQLGeneratorSchema {
   extendTypeormBaseEntity: boolean;
   lib: string;
   createLibOnInexist: boolean;
+  // exportNameSpace: string;
 }
