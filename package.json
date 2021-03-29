@@ -50,8 +50,10 @@
   "dependencies": {
     "class-validator": "^0.13.1",
     "graphql": "^15.5.0",
+    "joi": "latest",
     "reflect-metadata": "latest",
     "ts-morph": "^10.0.2",
-    "type-graphql": "^1.1.1"
+    "type-graphql": "^1.1.1",
+    "typeorm": "latest"
   }
 }

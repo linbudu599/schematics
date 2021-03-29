@@ -23,6 +23,71 @@ import path from 'path';
 import chalk from 'chalk';
 import { TypeGraphQLGeneratorSchema, AvaliableLib } from './schema';
 
+export default async function (host: Tree, schema: TypeGraphQLGeneratorSchema) {
+  const projects = getProjects(host);
+  const libs: Array<AvaliableLib> = [];
+
+  projects.forEach((project, libName) => {
+    if (project.projectType === 'library') {
+      libs.push({
+        libName,
+        root: project.root,
+        sourceRoot: project.sourceRoot,
+      });
+    }
+  });
+  const libNames = libs.map((lib) => lib.libName);
+
+  const normalizedSchema = normalizeSchema(schema, libNames);
+
+  if (!libNames.includes(normalizedSchema.lib)) {
+    console.log(`Create New Lib ${normalizedSchema.lib}`);
+    await libraryGenerator(host, { name: normalizedSchema.lib });
+  }
+
+  const libConfig = readProjectConfiguration(host, normalizedSchema.lib);
+
+  const { className, fileName } = names(normalizedSchema.objectTypeName);
+
+  const libSourceRoot = joinPathFragments(libConfig.sourceRoot);
+  const libSourceLib = joinPathFragments(libConfig.sourceRoot, 'lib');
+  const libSourceIndexFilePath = path.join(libSourceRoot, './index.ts');
+
+  const libSourceIndexFileContent = host
+    .read(libSourceIndexFilePath)
+    .toString('utf-8');
+
+  const dtoNames = generateDTONames(className);
+
+  generateFiles(host, path.join(__dirname, './templates'), libSourceLib, {
+    tmpl: '',
+    ObjectType: fileName,
+    componentName: className,
+    interfaceName: `I${className}`,
+    ...normalizedSchema,
+    ...dtoNames,
+  });
+
+  const updatedIndexFileContent = appendExportToIndexFile(
+    libSourceIndexFilePath,
+    libSourceIndexFileContent,
+    fileName
+  );
+
+  host.write(libSourceIndexFilePath, updatedIndexFileContent);
+
+  await formatFiles(host);
+
+  const deps = composeDepsList(normalizedSchema);
+  const devDeps = composeDevDepsList(normalizedSchema);
+
+  addDependenciesToPackageJson(host, deps, devDeps);
+
+  return () => {
+    installPackagesTask(host);
+  };
+}
+
 function normalizeSchema(
   schema: Partial<TypeGraphQLGeneratorSchema>,
   libNames: Array<string>
@@ -39,85 +104,16 @@ function normalizeSchema(
     schema.lib = 'graphql';
   }
 
+  if (schema.extendTypeormBaseEntity && !schema.useTypeormEntityDecorator) {
+    console.warn(
+      "'extendTypeormBaseEntity' option require 'useTypeormEntityDecorator' to be true, set it automatically"
+    );
+    schema.useTypeormEntityDecorator = true;
+  }
+
   // const { className } = names(schema.objectTypeName);
 
   return schema as TypeGraphQLGeneratorSchema;
-}
-
-export default async function (host: Tree, schema: TypeGraphQLGeneratorSchema) {
-  console.log('schema: ', schema);
-
-  const projects = getProjects(host);
-  const libs: Array<AvaliableLib> = [];
-
-  projects.forEach((project, libName) => {
-    if (project.projectType === 'library') {
-      libs.push({
-        libName,
-        root: project.root,
-        sourceRoot: project.sourceRoot,
-      });
-    }
-  });
-  const libNames = libs.map((lib) => lib.libName);
-
-  const normalizedSchema = normalizeSchema(schema, libNames);
-  console.log('normalizedSchema: ', normalizedSchema);
-
-  if (!libNames.includes(normalizedSchema.lib)) {
-    console.log(`Create New Lib ${normalizedSchema.lib}`);
-    await libraryGenerator(host, { name: normalizedSchema.lib });
-  }
-
-  const libConfig = readProjectConfiguration(host, normalizedSchema.lib);
-
-  const { className, fileName } = names(normalizedSchema.objectTypeName);
-
-  const libSourceRoot = joinPathFragments(libConfig.sourceRoot);
-  const libSourceLib = joinPathFragments(libConfig.sourceRoot, 'lib');
-  const libSourceIndexFile = path.join(libSourceRoot, './index.ts');
-
-  const indexContent = host.read(libSourceIndexFile).toString('utf-8');
-
-  const dtoNames = generateDTONames(className);
-
-  generateFiles(host, path.join(__dirname, './templates'), libSourceLib, {
-    tmpl: '',
-    ObjectType: fileName,
-    componentName: className,
-    ...normalizedSchema,
-    ...dtoNames,
-  });
-
-  const project = new Project();
-
-  const sourceFile = project.createSourceFile(
-    libSourceIndexFile,
-    indexContent,
-    { overwrite: true }
-  );
-
-  sourceFile.addExportDeclaration({
-    kind: StructureKind.ExportDeclaration,
-    isTypeOnly: false,
-    // TODO: support namespace option
-    // namespaceExport: 'x',
-    // namedExports: ['*'],
-    moduleSpecifier: `./lib/${fileName}`,
-  });
-
-  host.write(libSourceIndexFile, sourceFile.getFullText());
-
-  await formatFiles(host);
-
-  const deps = composeDepsList(normalizedSchema);
-  const devDeps = composeDevDepsList(normalizedSchema);
-
-  addDependenciesToPackageJson(host, deps, devDeps);
-
-  return () => {
-    installPackagesTask(host);
-  };
 }
 
 function generateDTONames(className: string) {
@@ -156,4 +152,27 @@ function composeDevDepsList(
   const basic = {};
 
   return basic;
+}
+
+function appendExportToIndexFile(
+  path: string,
+  content: string,
+  fileName: string
+): string {
+  const project = new Project();
+
+  const sourceFile = project.createSourceFile(path, content, {
+    overwrite: true,
+  });
+
+  sourceFile.addExportDeclaration({
+    kind: StructureKind.ExportDeclaration,
+    isTypeOnly: false,
+    // TODO: support namespace option
+    // namespaceExport: 'x',
+    // namedExports: ['*'],
+    moduleSpecifier: `./lib/${fileName}`,
+  });
+
+  return sourceFile.getFullText();
 }

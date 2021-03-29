@@ -33,7 +33,7 @@
         "type": "list",
         "items": [
           { "value": "ClassValidator", "label": "Class-Validator" },
-          { "value": "Joi", "label": "@hapi/joi" }
+          { "value": "Joi", "label": "Joi" }
         ]
       }
     },
