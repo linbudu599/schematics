@@ -60,12 +60,11 @@ export default async function (host: Tree, schema: TypeGraphQLGeneratorSchema) {
     }
   });
   const libNames = libs.map((lib) => lib.libName);
-  console.log('libNames: ', libNames);
 
   const normalizedSchema = normalizeSchema(schema, libNames);
   console.log('normalizedSchema: ', normalizedSchema);
 
-  if (!(normalizedSchema.lib in libNames)) {
+  if (!libNames.includes(normalizedSchema.lib)) {
     console.log(`Create New Lib ${normalizedSchema.lib}`);
     await libraryGenerator(host, { name: normalizedSchema.lib });
   }
@@ -80,10 +79,14 @@ export default async function (host: Tree, schema: TypeGraphQLGeneratorSchema) {
 
   const indexContent = host.read(libSourceIndexFile).toString('utf-8');
 
+  const dtoNames = generateDTONames(className);
+
   generateFiles(host, path.join(__dirname, './templates'), libSourceLib, {
     tmpl: '',
     ObjectType: fileName,
     componentName: className,
+    ...normalizedSchema,
+    ...dtoNames,
   });
 
   const project = new Project();
@@ -107,20 +110,50 @@ export default async function (host: Tree, schema: TypeGraphQLGeneratorSchema) {
 
   await formatFiles(host);
 
-  addDependenciesToPackageJson(
-    host,
-    {
-      'type-graphql': 'latest',
-      graphql: 'latest',
-      'reflect-metadata': 'latest',
-      [normalizedSchema.createDTOBy === 'ClassValidator'
-        ? 'class-validator'
-        : 'joi']: 'latest',
-    },
-    {}
-  );
+  const deps = composeDepsList(normalizedSchema);
+  const devDeps = composeDevDepsList(normalizedSchema);
+
+  addDependenciesToPackageJson(host, deps, devDeps);
 
   return () => {
     installPackagesTask(host);
   };
+}
+
+function generateDTONames(className: string) {
+  return {
+    CreateDTOClassName: `Create${className}DTO`,
+    UpdateDTOClassName: `Update${className}DTO`,
+    DeleteDTOClassName: `Deleete${className}DTO`,
+  };
+}
+
+function composeDepsList(
+  schema: TypeGraphQLGeneratorSchema
+): Record<string, string> {
+  let basic: Record<string, string> = {
+    'type-graphql': 'latest',
+    graphql: 'latest',
+    'reflect-metadata': 'latest',
+    [schema.dtoHandler === 'ClassValidator'
+      ? 'class-validator'
+      : 'joi']: 'latest',
+  };
+
+  if (schema.useTypeormEntityDecorator || schema.extendTypeormBaseEntity) {
+    basic = {
+      ...basic,
+      typeorm: 'latest',
+    };
+  }
+
+  return basic;
+}
+
+function composeDevDepsList(
+  schema: TypeGraphQLGeneratorSchema
+): Record<string, string> {
+  const basic = {};
+
+  return basic;
 }

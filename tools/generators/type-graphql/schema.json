@@ -19,13 +19,13 @@
       "alias": "i",
       "default": false
     },
-    "createDTO": {
+    "generateDTO": {
       "type": "boolean",
       "x-prompt": "Create DTO from ObjectType?",
       "description": "Create DTO",
       "default": true
     },
-    "createDTOBy": {
+    "dtoHandler": {
       "type": "string",
       "description": "Use Class-Validator or Joi to create DTO",
       "x-prompt": {
@@ -85,8 +85,8 @@
   "required": [
     "objectTypeName",
     "extendInterfaceType",
-    "createDTO",
-    "createDTOBy",
+    "generateDTO",
+    "dtoHandler",
     "useTypeormEntityDecorator",
     "extendTypeormBaseEntity",
     "lib",

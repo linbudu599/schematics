@@ -1,4 +1,41 @@
+<% if(!generateDTO && !extendInterfaceType) { -%>
 import { ObjectType, Field } from 'type-graphql';
+<% } -%>
+<% if(!generateDTO && extendInterfaceType) { -%>
+import { ObjectType, InterfaceType, Field } from 'type-graphql';
+<% } -%>
+<% if(generateDTO && !extendInterfaceType) { -%>
+import { ObjectType, InputType, Field } from 'type-graphql';
+<% } -%>
+<% if(generateDTO && extendInterfaceType) { -%>
+import { ObjectType, InputType, InterfaceType, Field } from 'type-graphql';
+<% } -%>
+<% if(useTypeormEntityDecorator && !extendTypeormBaseEntity) { -%>
+import { Entity } from 'typeorm';
+<% } -%>
+<% if(useTypeormEntityDecorator && extendTypeormBaseEntity) { -%>
+import { Entity, BaseEntity } from 'typeorm';
+<% } -%>
+<% if (dtoHandler ===" ClassValidator") { -%>
+import { IsString, IsInt, IsBoolean, IsOptional } from 'class-validator'
+<% } -%>
+<% if (dtoHandler ===" Joi") { -%>
+import { Joi } from 'joi'
+<% } -%>
 
 @ObjectType()
-export class <%= componentName %> { }
+export class <%= componentName -%> { }
+
+<% if (generateDTO) { %>
+<%# Create ObjectType DTO -%>
+@InputType()
+export class <%= CreateDTOClassName -%> { }
+
+<%# Update ObjectType DTO -%>
+@InputType()
+export class <%= UpdateDTOClassName -%> { }
+
+<%# Delete ObjectType DTO -%>
+@InputType()
+export class <%= DeleteDTOClassName -%> { }
+<% } %>

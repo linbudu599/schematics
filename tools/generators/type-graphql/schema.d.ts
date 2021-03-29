@@ -16,8 +16,9 @@ export interface TypeGraphQLGeneratorSchema {
   objectTypeName: string;
   extendInterfaceType: boolean;
   // props: Record<string, PropsMetadata>;
-  createDTO: boolean;
-  createDTOBy: 'ClassValidator' | 'Joi';
+  generateDTO: boolean;
+  // @midwayjs/decorator ?
+  dtoHandler: 'ClassValidator' | 'Joi';
   useTypeormEntityDecorator: boolean;
   extendTypeormBaseEntity: boolean;
   lib: string;
