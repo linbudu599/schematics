@@ -12,7 +12,7 @@ interface AvaliableLib {
   libName: string;
 }
 
-export interface TypeGraphQLGeneratorSchema {
+export interface TypeGraphQLObjectTypeSchema {
   objectTypeName: string;
   extendInterfaceType: boolean;
   // props: Record<string, PropsMetadata>;

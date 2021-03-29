@@ -21,9 +21,12 @@ import { libraryGenerator } from '@nrwl/workspace/generators';
 import { Project, StructureKind, SourceFileStructure } from 'ts-morph';
 import path from 'path';
 import chalk from 'chalk';
-import { TypeGraphQLGeneratorSchema, AvaliableLib } from './schema';
+import { TypeGraphQLObjectTypeSchema, AvaliableLib } from './schema';
 
-export default async function (host: Tree, schema: TypeGraphQLGeneratorSchema) {
+export default async function (
+  host: Tree,
+  schema: TypeGraphQLObjectTypeSchema
+) {
   const projects = getProjects(host);
   const libs: Array<AvaliableLib> = [];
 
@@ -89,9 +92,9 @@ export default async function (host: Tree, schema: TypeGraphQLGeneratorSchema) {
 }
 
 function normalizeSchema(
-  schema: Partial<TypeGraphQLGeneratorSchema>,
+  schema: Partial<TypeGraphQLObjectTypeSchema>,
   libNames: Array<string>
-): TypeGraphQLGeneratorSchema {
+): TypeGraphQLObjectTypeSchema {
   if (!schema.objectTypeName) {
     throw new Error('ObjectType name required!');
   }
@@ -113,7 +116,7 @@ function normalizeSchema(
 
   // const { className } = names(schema.objectTypeName);
 
-  return schema as TypeGraphQLGeneratorSchema;
+  return schema as TypeGraphQLObjectTypeSchema;
 }
 
 function generateDTONames(className: string) {
@@ -125,7 +128,7 @@ function generateDTONames(className: string) {
 }
 
 function composeDepsList(
-  schema: TypeGraphQLGeneratorSchema
+  schema: TypeGraphQLObjectTypeSchema
 ): Record<string, string> {
   let basic: Record<string, string> = {
     'type-graphql': 'latest',
@@ -147,7 +150,7 @@ function composeDepsList(
 }
 
 function composeDevDepsList(
-  schema: TypeGraphQLGeneratorSchema
+  schema: TypeGraphQLObjectTypeSchema
 ): Record<string, string> {
   const basic = {};
 
