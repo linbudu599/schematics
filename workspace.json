@@ -8,18 +8,97 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": { "lintFilePatterns": ["libs/lib1/**/*.ts"] }
+          "options": {
+            "lintFilePatterns": [
+              "libs/lib1/**/*.ts"
+            ]
+          }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/lib1"],
+          "outputs": [
+            "coverage/libs/lib1"
+          ],
           "options": {
             "jestConfig": "libs/lib1/jest.config.js",
             "passWithNoTests": true
           }
         }
       }
+    },
+    "type-graphql": {
+      "root": "libs/type-graphql",
+      "sourceRoot": "libs/type-graphql/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/type-graphql/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/type-graphql"
+          ],
+          "options": {
+            "jestConfig": "libs/type-graphql/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/libs/type-graphql",
+            "tsConfig": "libs/type-graphql/tsconfig.lib.json",
+            "packageJson": "libs/type-graphql/package.json",
+            "main": "libs/type-graphql/src/index.ts",
+            "assets": [
+              "libs/type-graphql/*.md",
+              {
+                "input": "./libs/type-graphql/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/type-graphql",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./libs/type-graphql",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "type-graphql-e2e": {
+      "projectType": "application",
+      "root": "apps\\type-graphql-e2e",
+      "sourceRoot": "apps\\type-graphql-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "type-graphql:build",
+            "npmPackageName": "@schematics/type-graphql",
+            "pluginOutputPath": "dist/libs/type-graphql",
+            "jestConfig": "apps/type-graphql-e2e/jest.config.js"
+          }
+        }
+      }
     }
   },
-  "cli": { "defaultCollection": "@nrwl/workspace" }
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
+  }
 }

@@ -27,6 +27,7 @@ export default async function (
   host: Tree,
   schema: TypeGraphQLObjectTypeSchema
 ) {
+  console.log('schema: ', schema);
   const projects = getProjects(host);
   const libs: Array<AvaliableLib> = [];
 

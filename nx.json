@@ -15,5 +15,9 @@
       "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
     }
   },
-  "projects": { "lib1": { "tags": [] } }
+  "projects": {
+    "lib1": { "tags": [] },
+    "type-graphql": { "tags": [] },
+    "type-graphql-e2e": { "tags": [], "implicitDependencies": ["type-graphql"] }
+  }
 }

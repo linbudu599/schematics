@@ -1,6 +1,8 @@
 {
+  "$schema": "http://json-schema.org/schema",
   "cli": "nx",
   "id": "type-graphql",
+  "title": "Create a React Application for Nx",
   "type": "object",
   "properties": {
     "objectTypeName": {
@@ -9,7 +11,7 @@
       "description": "ObjectType Name",
       "$default": {
         "$source": "argv",
-        "index": 0
+        "index": 1
       }
     },
     "extendInterfaceType": {
