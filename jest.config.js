@@ -1,7 +1,9 @@
 module.exports = {
   projects: [
     '<rootDir>/libs/lib1',
-    '<rootDir>/libs/type-graphql',
-    '<rootDir>/apps\\type-graphql-e2e',
+    '<rootDir>/apps/node',
+    '<rootDir>/apps/other/aaa',
+    '<rootDir>/apps/app1',
+    '<rootDir>/apps/nest-app',
   ],
 };

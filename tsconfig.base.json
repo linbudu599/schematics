@@ -8,16 +8,16 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "es2017",
     "esModuleInterop": true,
-    "module": "esnext",
+    "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@schematics/lib1": ["libs/lib1/src/index.ts"],
-      "@schematics/type-graphql": ["libs/type-graphql/src/index.ts"]
+      "@schematics/lib1": ["libs/lib1/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

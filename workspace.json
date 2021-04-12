@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "cli": { "defaultCollection": "@nrwl/node" },
+  "defaultProject": "node",
   "projects": {
     "lib1": {
       "root": "libs/lib1",
@@ -8,17 +10,11 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/lib1/**/*.ts"
-            ]
-          }
+          "options": { "lintFilePatterns": ["libs/lib1/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/lib1"
-          ],
+          "outputs": ["coverage/libs/lib1"],
           "options": {
             "jestConfig": "libs/lib1/jest.config.js",
             "passWithNoTests": true
@@ -26,79 +22,215 @@
         }
       }
     },
-    "type-graphql": {
-      "root": "libs/type-graphql",
-      "sourceRoot": "libs/type-graphql/src",
-      "projectType": "library",
+    "node": {
+      "root": "apps/node",
+      "sourceRoot": "apps/node/src",
+      "projectType": "application",
+      "prefix": "node",
       "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/node",
+            "main": "apps/node/src/main.ts",
+            "tsConfig": "apps/node/tsconfig.app.json",
+            "assets": ["apps/node/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/node/src/environments/environment.ts",
+                  "with": "apps/node/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "x": {
+          "executor": "nx-plugin-esbuild:build",
+          "options": {
+            "outputPath": "dist-test/apps/node",
+            "main": "apps/node/src/main.ts",
+            "tsConfig": "apps/node/tsconfig.app.json",
+            "watch": true
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": { "buildTarget": "node:build" }
+        },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/type-graphql/**/*.ts"
-            ]
-          }
+          "options": { "lintFilePatterns": ["apps/node/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/type-graphql"
-          ],
+          "outputs": ["coverage/apps/node"],
           "options": {
-            "jestConfig": "libs/type-graphql/jest.config.js",
+            "jestConfig": "apps/node/jest.config.js",
             "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
-          "options": {
-            "outputPath": "dist/libs/type-graphql",
-            "tsConfig": "libs/type-graphql/tsconfig.lib.json",
-            "packageJson": "libs/type-graphql/package.json",
-            "main": "libs/type-graphql/src/index.ts",
-            "assets": [
-              "libs/type-graphql/*.md",
-              {
-                "input": "./libs/type-graphql/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./libs/type-graphql",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./libs/type-graphql",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
           }
         }
       }
     },
-    "type-graphql-e2e": {
+    "other-aaa": {
+      "root": "apps/other/aaa",
+      "sourceRoot": "apps/other/aaa/src",
       "projectType": "application",
-      "root": "apps\\type-graphql-e2e",
-      "sourceRoot": "apps\\type-graphql-e2e/src",
+      "prefix": "other-aaa",
       "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
           "options": {
-            "target": "type-graphql:build",
-            "npmPackageName": "@schematics/type-graphql",
-            "pluginOutputPath": "dist/libs/type-graphql",
-            "jestConfig": "apps/type-graphql-e2e/jest.config.js"
+            "outputPath": "dist/apps/other/aaa",
+            "main": "apps/other/aaa/src/main.ts",
+            "tsConfig": "apps/other/aaa/tsconfig.app.json",
+            "assets": ["apps/other/aaa/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/other/aaa/src/environments/environment.ts",
+                  "with": "apps/other/aaa/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": { "buildTarget": "other-aaa:build" }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["apps/other/aaa/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/other/aaa"],
+          "options": {
+            "jestConfig": "apps/other/aaa/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "app1": {
+      "root": "apps/app1",
+      "sourceRoot": "apps\\app1\\src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/app1",
+            "main": "apps/app1/src/main.ts",
+            "tsConfig": "apps/app1/tsconfig.app.json",
+            "assets": ["apps/app1/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/app1/src/environments/environment.ts",
+                  "with": "apps/app1/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": { "buildTarget": "app1:build" }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["apps/app1/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/app1"],
+          "options": {
+            "jestConfig": "apps/app1/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "nest-app": {
+      "root": "apps/nest-app",
+      "sourceRoot": "apps\\nest-app\\src",
+      "projectType": "application",
+      "targets": {
+        "x": {
+          "executor": "nx-plugin-esbuild:build",
+          "options": {
+            "outputPath": "dist-test/apps/nest-app",
+            "main": "apps/nest-app/src/main.ts",
+            "tsConfig": "apps/nest-app/tsconfig.app.json",
+            "watch": false,
+            "bundle": true,
+            "assets": [
+              "apps/nest-app/src/assets",
+              "apps/nest-app/src/my-assets"
+            ],
+            "insert": ["// SHOULD_AT_JS_BANNER"]
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/nest-app",
+            "main": "apps/nest-app/src/main.ts",
+            "tsConfig": "apps/nest-app/tsconfig.app.json",
+            "assets": ["apps/nest-app/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/nest-app/src/environments/environment.ts",
+                  "with": "apps/nest-app/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": { "buildTarget": "nest-app:build" }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["apps/nest-app/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/nest-app"],
+          "options": {
+            "jestConfig": "apps/nest-app/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/workspace"
   }
 }

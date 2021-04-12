@@ -8,3 +8,6 @@
 - Schematics: Generated Files. -->
 
 > **migrate to @penumbra/nx-plugins(WIP)**
+
+<!-- nx generate @nrwl/workspace:workspace-generator my-generator
+nx workspace-generator my-generator mylib -->

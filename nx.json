@@ -1,6 +1,4 @@
 {
-  "npmScope": "schematics",
-  "affected": { "defaultBase": "master" },
   "implicitDependencies": {
     "workspace.json": "*",
     "package.json": { "dependencies": "*", "devDependencies": "*" },
@@ -9,6 +7,8 @@
     ".eslintrc.json": "*",
     "nx.json": "*"
   },
+  "affected": { "defaultBase": "master" },
+  "npmScope": "schematics",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
@@ -17,7 +17,9 @@
   },
   "projects": {
     "lib1": { "tags": [] },
-    "type-graphql": { "tags": [] },
-    "type-graphql-e2e": { "tags": [], "implicitDependencies": ["type-graphql"] }
+    "node": { "tags": [] },
+    "other-aaa": { "tags": [] },
+    "app1": { "tags": [] },
+    "nest-app": { "tags": [] }
   }
 }
