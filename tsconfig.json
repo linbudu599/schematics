@@ -8,7 +8,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "outDir": "xxx",
+    "outDir": "tmp/xxx",
     "target": "es2015",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -18,6 +18,5 @@
     "skipDefaultLibCheck": true,
     "baseUrl": "."
   },
-  "include": ["a.ts"],
   "exclude": ["node_modules", "tmp"]
 }

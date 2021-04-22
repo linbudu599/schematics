@@ -18,8 +18,10 @@
   "projects": {
     "lib1": { "tags": [] },
     "node": { "tags": [] },
-    "other-aaa": { "tags": [] },
-    "app1": { "tags": [] },
-    "nest-app": { "tags": [] }
+    "nest-app": { "tags": [] },
+    "react-app": { "tags": [] },
+    "react-app-e2e": { "tags": [], "implicitDependencies": ["react-app"] },
+    "koa": { "tags": [] },
+    "koa-app": { "tags": [] }
   }
 }
