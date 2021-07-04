@@ -1,4 +1,10 @@
-# Add files here to ignore them from prettier formatting
+
+    
+    # Add files here to ignore them from prettier formatting
 
 /dist
 /coverage
+
+apps/prisma-app/src/app/prisma/client
+
+apps/prisma-app/src/app/prisma/node_modules/.prisma/client

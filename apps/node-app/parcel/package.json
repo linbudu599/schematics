@@ -1,0 +1,92 @@
+{
+  "name": "parcel-tsx-boilerplate",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "parcel serve ./src/index.html",
+    "build": "rimraf -rf ./dist/app && parcel build ./src/index.html --target app",
+    "build:modern": "rimraf -rf ./dist/appModern && parcel build ./src/index.html --target appModern",
+    "clean": "rimraf -rf ./node_modules",
+    "test": "jest",
+    "commit": "git add -A && git-cz"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "app": "./dist/app/index.html",
+  "appModern": "./dist/appModern/index.html",
+  "source": [
+    "src/*"
+  ],
+  "targets": {
+    "app": {
+      "engines": {
+        "browsers": "> 0.25%"
+      },
+      "distDir": "./dist/app"
+    },
+    "appModern": {
+      "engines": {
+        "browsers": "Chrome 80"
+      },
+      "distDir": "./dist/appModern"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
+  },
+  "alias": {
+    "@/pages": "./src/pages",
+    "@/components": "./src/components"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "husky": "^6.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.3.0",
+    "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-react": "^7.13.13",
+    "@babel/preset-typescript": "^7.13.0",
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "@jest/core": "^26.6.3",
+    "@parcel/transformer-image": "2.0.0-beta.3.1",
+    "@testing-library/react-hooks": "^6.0.0",
+    "@types/enzyme": "^3.10.8",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.6.0",
+    "@types/react": "^17.0.6",
+    "@types/react-dom": "^17.0.5",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/styled-components": "^5.1.9",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
+    "babel-jest": "^26.6.3",
+    "babel-plugin-styled-components": "^1.12.0",
+    "commitizen": "^4.2.4",
+    "commitlint-config-cz": "^0.13.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^6.3.0",
+    "enzyme": "^3.11.0",
+    "eslint": "^7.27.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.6.3",
+    "jest-enzyme": "^7.1.2",
+    "parcel": "^2.0.0-beta.3.1",
+    "prettier": "^2.3.0",
+    "pretty-quick": "^3.1.0",
+    "rimraf": "^3.0.2",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
+    "ts-jest": "^26.5.6",
+    "ts-node": "^10.0.0"
+  }
+}

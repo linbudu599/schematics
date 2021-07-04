@@ -1,0 +1,40 @@
+var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Para", ()=>Para
+);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _styledComponents = require("styled-components");
+var _styledComponentsDefault = parcelHelpers.interopDefault(_styledComponents);
+var Para = _styledComponentsDefault.default.p.withConfig({
+    displayName: "home__Para",
+    componentId: "sc-1iadhq7-0"
+})([
+    "font-size:",
+    ";text-align:center;color:steelblue;"
+], function(props) {
+    return props.size || '1em';
+});
+_c = Para;
+var Home = function Home1() {
+    return(/*#__PURE__*/ _reactDefault.default.createElement(_reactDefault.default.Fragment, null, /*#__PURE__*/ _reactDefault.default.createElement(Para, {
+        size: '1.5em'
+    }, "Your Warm Home!")));
+};
+_c1 = Home;
+exports.default = Home;
+var _c, _c1;
+$RefreshReg$(_c, "Para");
+$RefreshReg$(_c1, "Home");
+
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

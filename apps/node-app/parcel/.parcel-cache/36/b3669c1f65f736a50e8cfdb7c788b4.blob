@@ -1,0 +1,9 @@
+function $4e983dc71f869435ce36892a96de8606$var$memoize(fn) {
+    var cache = {
+    };
+    return function(arg) {
+        if (cache[arg] === undefined) cache[arg] = fn(arg);
+        return cache[arg];
+    };
+}
+var $4e983dc71f869435ce36892a96de8606$export$9099ad97b570f7c = $4e983dc71f869435ce36892a96de8606$var$memoize;

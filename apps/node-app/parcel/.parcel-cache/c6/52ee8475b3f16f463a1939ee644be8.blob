@@ -1,0 +1,17 @@
+import   "5b0bba9b7e6c60fe7f0156a18bf85eea:react";
+import   "5b0bba9b7e6c60fe7f0156a18bf85eea:styled-components";
+var $5b0bba9b7e6c60fe7f0156a18bf85eea$export$d516261865d25ec0 = $5b0bba9b7e6c60fe7f0156a18bf85eea$import$89728ad6d1138102$9099ad97b570f7c.p.withConfig({
+    displayName: "home__Para",
+    componentId: "sc-1iadhq7-0"
+})([
+    "font-size:",
+    ";text-align:center;color:steelblue;"
+], function(props) {
+    return props.size || '1em';
+});
+var $5b0bba9b7e6c60fe7f0156a18bf85eea$var$Home = function Home() {
+    return(/*#__PURE__*/ $5b0bba9b7e6c60fe7f0156a18bf85eea$import$f02ba03fc070e88c$9099ad97b570f7c.createElement($5b0bba9b7e6c60fe7f0156a18bf85eea$import$f02ba03fc070e88c$9099ad97b570f7c.Fragment, null, /*#__PURE__*/ $5b0bba9b7e6c60fe7f0156a18bf85eea$import$f02ba03fc070e88c$9099ad97b570f7c.createElement($5b0bba9b7e6c60fe7f0156a18bf85eea$export$d516261865d25ec0, {
+        size: '1.5em'
+    }, "Your Warm Home!")));
+};
+var $5b0bba9b7e6c60fe7f0156a18bf85eea$export$9099ad97b570f7c = $5b0bba9b7e6c60fe7f0156a18bf85eea$var$Home;

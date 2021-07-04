@@ -1,0 +1,3 @@
+'use strict';
+import   "623b7bee6e777ae5b4d29c7579d33df9:./cjs/react.production.min.js";
+$623b7bee6e777ae5b4d29c7579d33df9$exports = $623b7bee6e777ae5b4d29c7579d33df9$import$cccbb64fbc600957;

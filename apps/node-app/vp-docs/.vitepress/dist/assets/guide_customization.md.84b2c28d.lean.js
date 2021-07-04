@@ -1,0 +1,1 @@
+import{o as n,c as s,a}from"./app.28a487c0.js";const t='{"title":"Customization","description":"","frontmatter":{},"relativePath":"guide/customization.md","lastUpdated":1619947176000}',e={},p=a('',9);e.render=function(a,t,e,o,c,u){return n(),s("div",null,[p])};export default e;export{t as __pageData};

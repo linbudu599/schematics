@@ -12,16 +12,16 @@
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
+      "options": { "cacheableOperations": ["lint", "test", "e2e"] }
     }
   },
   "projects": {
-    "lib1": { "tags": [] },
-    "node": { "tags": [] },
     "nest-app": { "tags": [] },
+    "koa-app": { "tags": [] },
+    "node-app": { "tags": [] },
+    "umi-app": { "tags": [] },
+    "umi-app-e2e": { "tags": [], "implicitDependencies": ["umi-app"] },
     "react-app": { "tags": [] },
-    "react-app-e2e": { "tags": [], "implicitDependencies": ["react-app"] },
-    "koa": { "tags": [] },
-    "koa-app": { "tags": [] }
+    "react-app-e2e": { "tags": [], "implicitDependencies": ["react-app"] }
   }
 }

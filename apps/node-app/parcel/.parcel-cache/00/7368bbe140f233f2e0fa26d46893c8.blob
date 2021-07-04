@@ -1,0 +1,147 @@
+// shim for using process in browser
+var $8e0bf384337bc1890448bd3c738c2ec4$var$process = $8e0bf384337bc1890448bd3c738c2ec4$exports = {
+};
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+var $8e0bf384337bc1890448bd3c738c2ec4$var$cachedSetTimeout;
+var $8e0bf384337bc1890448bd3c738c2ec4$var$cachedClearTimeout;
+function $8e0bf384337bc1890448bd3c738c2ec4$var$defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function $8e0bf384337bc1890448bd3c738c2ec4$var$defaultClearTimeout() {
+    throw new Error('clearTimeout has not been defined');
+}
+(function() {
+    try {
+        if (typeof setTimeout === 'function') $8e0bf384337bc1890448bd3c738c2ec4$var$cachedSetTimeout = setTimeout;
+        else $8e0bf384337bc1890448bd3c738c2ec4$var$cachedSetTimeout = $8e0bf384337bc1890448bd3c738c2ec4$var$defaultSetTimout;
+    } catch (e) {
+        $8e0bf384337bc1890448bd3c738c2ec4$var$cachedSetTimeout = $8e0bf384337bc1890448bd3c738c2ec4$var$defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') $8e0bf384337bc1890448bd3c738c2ec4$var$cachedClearTimeout = clearTimeout;
+        else $8e0bf384337bc1890448bd3c738c2ec4$var$cachedClearTimeout = $8e0bf384337bc1890448bd3c738c2ec4$var$defaultClearTimeout;
+    } catch (e) {
+        $8e0bf384337bc1890448bd3c738c2ec4$var$cachedClearTimeout = $8e0bf384337bc1890448bd3c738c2ec4$var$defaultClearTimeout;
+    }
+})();
+function $8e0bf384337bc1890448bd3c738c2ec4$var$runTimeout(fun) {
+    if ($8e0bf384337bc1890448bd3c738c2ec4$var$cachedSetTimeout === setTimeout) //normal enviroments in sane situations
+    return setTimeout(fun, 0);
+    // if setTimeout wasn't available but was latter defined
+    if (($8e0bf384337bc1890448bd3c738c2ec4$var$cachedSetTimeout === $8e0bf384337bc1890448bd3c738c2ec4$var$defaultSetTimout || !$8e0bf384337bc1890448bd3c738c2ec4$var$cachedSetTimeout) && setTimeout) {
+        $8e0bf384337bc1890448bd3c738c2ec4$var$cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return $8e0bf384337bc1890448bd3c738c2ec4$var$cachedSetTimeout(fun, 0);
+    } catch (e) {
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return $8e0bf384337bc1890448bd3c738c2ec4$var$cachedSetTimeout.call(null, fun, 0);
+        } catch (e1) {
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return $8e0bf384337bc1890448bd3c738c2ec4$var$cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+}
+function $8e0bf384337bc1890448bd3c738c2ec4$var$runClearTimeout(marker) {
+    if ($8e0bf384337bc1890448bd3c738c2ec4$var$cachedClearTimeout === clearTimeout) //normal enviroments in sane situations
+    return clearTimeout(marker);
+    // if clearTimeout wasn't available but was latter defined
+    if (($8e0bf384337bc1890448bd3c738c2ec4$var$cachedClearTimeout === $8e0bf384337bc1890448bd3c738c2ec4$var$defaultClearTimeout || !$8e0bf384337bc1890448bd3c738c2ec4$var$cachedClearTimeout) && clearTimeout) {
+        $8e0bf384337bc1890448bd3c738c2ec4$var$cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return $8e0bf384337bc1890448bd3c738c2ec4$var$cachedClearTimeout(marker);
+    } catch (e) {
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return $8e0bf384337bc1890448bd3c738c2ec4$var$cachedClearTimeout.call(null, marker);
+        } catch (e1) {
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return $8e0bf384337bc1890448bd3c738c2ec4$var$cachedClearTimeout.call(this, marker);
+        }
+    }
+}
+var $8e0bf384337bc1890448bd3c738c2ec4$var$queue = [];
+var $8e0bf384337bc1890448bd3c738c2ec4$var$draining = false;
+var $8e0bf384337bc1890448bd3c738c2ec4$var$currentQueue;
+var $8e0bf384337bc1890448bd3c738c2ec4$var$queueIndex = -1;
+function $8e0bf384337bc1890448bd3c738c2ec4$var$cleanUpNextTick() {
+    if (!$8e0bf384337bc1890448bd3c738c2ec4$var$draining || !$8e0bf384337bc1890448bd3c738c2ec4$var$currentQueue) return;
+    $8e0bf384337bc1890448bd3c738c2ec4$var$draining = false;
+    if ($8e0bf384337bc1890448bd3c738c2ec4$var$currentQueue.length) $8e0bf384337bc1890448bd3c738c2ec4$var$queue = $8e0bf384337bc1890448bd3c738c2ec4$var$currentQueue.concat($8e0bf384337bc1890448bd3c738c2ec4$var$queue);
+    else $8e0bf384337bc1890448bd3c738c2ec4$var$queueIndex = -1;
+    if ($8e0bf384337bc1890448bd3c738c2ec4$var$queue.length) $8e0bf384337bc1890448bd3c738c2ec4$var$drainQueue();
+}
+function $8e0bf384337bc1890448bd3c738c2ec4$var$drainQueue() {
+    if ($8e0bf384337bc1890448bd3c738c2ec4$var$draining) return;
+    var timeout = $8e0bf384337bc1890448bd3c738c2ec4$var$runTimeout($8e0bf384337bc1890448bd3c738c2ec4$var$cleanUpNextTick);
+    $8e0bf384337bc1890448bd3c738c2ec4$var$draining = true;
+    var len = $8e0bf384337bc1890448bd3c738c2ec4$var$queue.length;
+    while(len){
+        $8e0bf384337bc1890448bd3c738c2ec4$var$currentQueue = $8e0bf384337bc1890448bd3c738c2ec4$var$queue;
+        $8e0bf384337bc1890448bd3c738c2ec4$var$queue = [];
+        while((++$8e0bf384337bc1890448bd3c738c2ec4$var$queueIndex) < len)if ($8e0bf384337bc1890448bd3c738c2ec4$var$currentQueue) $8e0bf384337bc1890448bd3c738c2ec4$var$currentQueue[$8e0bf384337bc1890448bd3c738c2ec4$var$queueIndex].run();
+        $8e0bf384337bc1890448bd3c738c2ec4$var$queueIndex = -1;
+        len = $8e0bf384337bc1890448bd3c738c2ec4$var$queue.length;
+    }
+    $8e0bf384337bc1890448bd3c738c2ec4$var$currentQueue = null;
+    $8e0bf384337bc1890448bd3c738c2ec4$var$draining = false;
+    $8e0bf384337bc1890448bd3c738c2ec4$var$runClearTimeout(timeout);
+}
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.nextTick = function(fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) for(var i = 1; i < arguments.length; i++)args[i - 1] = arguments[i];
+    $8e0bf384337bc1890448bd3c738c2ec4$var$queue.push(new $8e0bf384337bc1890448bd3c738c2ec4$var$Item(fun, args));
+    if ($8e0bf384337bc1890448bd3c738c2ec4$var$queue.length === 1 && !$8e0bf384337bc1890448bd3c738c2ec4$var$draining) $8e0bf384337bc1890448bd3c738c2ec4$var$runTimeout($8e0bf384337bc1890448bd3c738c2ec4$var$drainQueue);
+};
+// v8 likes predictible objects
+function $8e0bf384337bc1890448bd3c738c2ec4$var$Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+$8e0bf384337bc1890448bd3c738c2ec4$var$Item.prototype.run = function() {
+    this.fun.apply(null, this.array);
+};
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.title = 'browser';
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.browser = true;
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.env = {
+};
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.argv = [];
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.version = ''; // empty string to avoid regexp issues
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.versions = {
+};
+function $8e0bf384337bc1890448bd3c738c2ec4$var$noop() {
+}
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.on = $8e0bf384337bc1890448bd3c738c2ec4$var$noop;
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.addListener = $8e0bf384337bc1890448bd3c738c2ec4$var$noop;
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.once = $8e0bf384337bc1890448bd3c738c2ec4$var$noop;
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.off = $8e0bf384337bc1890448bd3c738c2ec4$var$noop;
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.removeListener = $8e0bf384337bc1890448bd3c738c2ec4$var$noop;
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.removeAllListeners = $8e0bf384337bc1890448bd3c738c2ec4$var$noop;
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.emit = $8e0bf384337bc1890448bd3c738c2ec4$var$noop;
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.prependListener = $8e0bf384337bc1890448bd3c738c2ec4$var$noop;
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.prependOnceListener = $8e0bf384337bc1890448bd3c738c2ec4$var$noop;
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.listeners = function(name) {
+    return [];
+};
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.binding = function(name) {
+    throw new Error('process.binding is not supported');
+};
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.cwd = function() {
+    return '/';
+};
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.chdir = function(dir) {
+    throw new Error('process.chdir is not supported');
+};
+$8e0bf384337bc1890448bd3c738c2ec4$var$process.umask = function() {
+    return 0;
+};

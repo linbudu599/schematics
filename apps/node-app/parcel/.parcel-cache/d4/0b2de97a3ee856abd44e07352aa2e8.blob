@@ -1,0 +1,94 @@
+import   "221deb07202c950b72889d7901e10423:react";
+import   "221deb07202c950b72889d7901e10423:styled-components";
+import   "221deb07202c950b72889d7901e10423:@/pages/home";
+import   "221deb07202c950b72889d7901e10423:url:./assets/avatar.jpg";
+function $221deb07202c950b72889d7901e10423$var$_slicedToArray(arr, i) {
+    return $221deb07202c950b72889d7901e10423$var$_arrayWithHoles(arr) || $221deb07202c950b72889d7901e10423$var$_iterableToArrayLimit(arr, i) || $221deb07202c950b72889d7901e10423$var$_unsupportedIterableToArray(arr, i) || $221deb07202c950b72889d7901e10423$var$_nonIterableRest();
+}
+function $221deb07202c950b72889d7901e10423$var$_nonIterableRest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function $221deb07202c950b72889d7901e10423$var$_unsupportedIterableToArray(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return $221deb07202c950b72889d7901e10423$var$_arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return $221deb07202c950b72889d7901e10423$var$_arrayLikeToArray(o, minLen);
+}
+function $221deb07202c950b72889d7901e10423$var$_arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+    for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
+    return arr2;
+}
+function $221deb07202c950b72889d7901e10423$var$_iterableToArrayLimit(arr, i) {
+    var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]);
+    if (_i == null) return;
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _s, _e;
+    try {
+        for(_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true){
+            _arr.push(_s.value);
+            if (i && _arr.length === i) break;
+        }
+    } catch (err) {
+        _d = true;
+        _e = err;
+    } finally{
+        try {
+            if (!_n && _i["return"] != null) _i["return"]();
+        } finally{
+            if (_d) throw _e;
+        }
+    }
+    return _arr;
+}
+function $221deb07202c950b72889d7901e10423$var$_arrayWithHoles(arr) {
+    if (Array.isArray(arr)) return arr;
+}
+var $221deb07202c950b72889d7901e10423$var$StyledButton = $221deb07202c950b72889d7901e10423$import$89728ad6d1138102$9099ad97b570f7c.button.withConfig({
+    displayName: "App__StyledButton",
+    componentId: "sc-3riqn-0"
+})([
+    "text-align:center;width:190px;height:45px;font-size:20px;border-radius:6px;background-color:steelblue;color:white;border:0px;margin:0 auto;display:flex;align-items:center;justify-content:center;"
+]);
+var $221deb07202c950b72889d7901e10423$var$CountPara = $221deb07202c950b72889d7901e10423$import$89728ad6d1138102$9099ad97b570f7c.p.withConfig({
+    displayName: "App__CountPara",
+    componentId: "sc-3riqn-1"
+})([
+    "text-align:center;font-size:32px;color:salmon;"
+]);
+var $221deb07202c950b72889d7901e10423$var$AvatarContainer = $221deb07202c950b72889d7901e10423$import$89728ad6d1138102$9099ad97b570f7c.div.withConfig({
+    displayName: "App__AvatarContainer",
+    componentId: "sc-3riqn-2"
+})([
+    "display:flex;justify-content:center;margin-bottom:25px;"
+]);
+var $221deb07202c950b72889d7901e10423$var$Avatar = $221deb07202c950b72889d7901e10423$import$89728ad6d1138102$9099ad97b570f7c.img.withConfig({
+    displayName: "App__Avatar",
+    componentId: "sc-3riqn-3"
+})([
+    "width:350px;height:350px;border-radius:175px;"
+]);
+var $221deb07202c950b72889d7901e10423$var$App = function App(_ref) {
+    var name = _ref.name;
+    var _useState = $221deb07202c950b72889d7901e10423$import$f02ba03fc070e88c$f54936751fc2c51(0), _useState2 = $221deb07202c950b72889d7901e10423$var$_slicedToArray(_useState, 2), count = _useState2[0], setCount = _useState2[1];
+    $221deb07202c950b72889d7901e10423$import$f02ba03fc070e88c$7e977b4ca969aabd(function() {
+    }, []);
+    return(/*#__PURE__*/ $221deb07202c950b72889d7901e10423$import$f02ba03fc070e88c$9099ad97b570f7c.createElement($221deb07202c950b72889d7901e10423$import$f02ba03fc070e88c$9099ad97b570f7c.Fragment, null, /*#__PURE__*/ $221deb07202c950b72889d7901e10423$import$f02ba03fc070e88c$9099ad97b570f7c.createElement("h1", {
+        style: {
+            textAlign: 'center'
+        }
+    }, "Hi! ", name), /*#__PURE__*/ $221deb07202c950b72889d7901e10423$import$f02ba03fc070e88c$9099ad97b570f7c.createElement($221deb07202c950b72889d7901e10423$var$CountPara, null, count), /*#__PURE__*/ $221deb07202c950b72889d7901e10423$import$f02ba03fc070e88c$9099ad97b570f7c.createElement($221deb07202c950b72889d7901e10423$var$AvatarContainer, null, /*#__PURE__*/ $221deb07202c950b72889d7901e10423$import$f02ba03fc070e88c$9099ad97b570f7c.createElement($221deb07202c950b72889d7901e10423$var$Avatar, {
+        src: $221deb07202c950b72889d7901e10423$import$71bc4dbcc5ceb764$9099ad97b570f7c
+    })), /*#__PURE__*/ $221deb07202c950b72889d7901e10423$import$f02ba03fc070e88c$9099ad97b570f7c.createElement($221deb07202c950b72889d7901e10423$var$StyledButton, {
+        onClick: function onClick() {
+            setCount(function(c) {
+                return c + 1;
+            });
+        }
+    }, "Click to add count!"), /*#__PURE__*/ $221deb07202c950b72889d7901e10423$import$f02ba03fc070e88c$9099ad97b570f7c.createElement("div", null, /*#__PURE__*/ $221deb07202c950b72889d7901e10423$import$f02ba03fc070e88c$9099ad97b570f7c.createElement($221deb07202c950b72889d7901e10423$import$25d327a7755c7e41$9099ad97b570f7c, null))));
+};
+var $221deb07202c950b72889d7901e10423$export$9099ad97b570f7c = $221deb07202c950b72889d7901e10423$var$App;

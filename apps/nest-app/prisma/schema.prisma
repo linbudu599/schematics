@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String
+  nickName String?
+  todos    Todo[]
+}
+
+model Todo {
+  id        Int      @id @default(autoincrement())
+  title     String   @unique
+  content   String?
+  type      String   @default("FEATURE")
+  finished  Boolean  @default(false)
+  creatorId Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  creator   User?    @relation(fields: [creatorId], references: [id])
+}

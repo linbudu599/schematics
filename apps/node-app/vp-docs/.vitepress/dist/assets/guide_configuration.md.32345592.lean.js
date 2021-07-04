@@ -1,0 +1,1 @@
+import{o as e,c as s,a}from"./app.28a487c0.js";const n='{"title":"Configuration","description":"","frontmatter":{},"relativePath":"guide/configuration.md","lastUpdated":1619947176000}',t={},o=a('',6);t.render=function(a,n,t,i,r,p){return e(),s("div",null,[o])};export default t;export{n as __pageData};

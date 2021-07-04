@@ -1,0 +1,84 @@
+'use strict';
+import   "05873d0f121f514f870c953633d00c6f:react-is";
+/**
+ * Copyright 2015, Yahoo! Inc.
+ * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
+ */ var $05873d0f121f514f870c953633d00c6f$var$REACT_STATICS = {
+    childContextTypes: true,
+    contextType: true,
+    contextTypes: true,
+    defaultProps: true,
+    displayName: true,
+    getDefaultProps: true,
+    getDerivedStateFromError: true,
+    getDerivedStateFromProps: true,
+    mixins: true,
+    propTypes: true,
+    type: true
+};
+var $05873d0f121f514f870c953633d00c6f$var$KNOWN_STATICS = {
+    name: true,
+    length: true,
+    prototype: true,
+    caller: true,
+    callee: true,
+    arguments: true,
+    arity: true
+};
+var $05873d0f121f514f870c953633d00c6f$var$FORWARD_REF_STATICS = {
+    '$$typeof': true,
+    render: true,
+    defaultProps: true,
+    displayName: true,
+    propTypes: true
+};
+var $05873d0f121f514f870c953633d00c6f$var$MEMO_STATICS = {
+    '$$typeof': true,
+    compare: true,
+    defaultProps: true,
+    displayName: true,
+    propTypes: true,
+    type: true
+};
+var $05873d0f121f514f870c953633d00c6f$var$TYPE_STATICS = {
+};
+$05873d0f121f514f870c953633d00c6f$var$TYPE_STATICS[$05873d0f121f514f870c953633d00c6f$import$d09f81957f6f9665$822d8fad912d8ae1] = $05873d0f121f514f870c953633d00c6f$var$FORWARD_REF_STATICS;
+$05873d0f121f514f870c953633d00c6f$var$TYPE_STATICS[$05873d0f121f514f870c953633d00c6f$import$d09f81957f6f9665$2302ec999c8e6f6e] = $05873d0f121f514f870c953633d00c6f$var$MEMO_STATICS;
+function $05873d0f121f514f870c953633d00c6f$var$getStatics(component) {
+    // React v16.11 and below
+    if ($05873d0f121f514f870c953633d00c6f$import$d09f81957f6f9665$5f724c73859d2b3d(component)) return $05873d0f121f514f870c953633d00c6f$var$MEMO_STATICS;
+     // React v16.12 and above
+    return $05873d0f121f514f870c953633d00c6f$var$TYPE_STATICS[component['$$typeof']] || $05873d0f121f514f870c953633d00c6f$var$REACT_STATICS;
+}
+var $05873d0f121f514f870c953633d00c6f$var$defineProperty = Object.defineProperty;
+var $05873d0f121f514f870c953633d00c6f$var$getOwnPropertyNames = Object.getOwnPropertyNames;
+var $05873d0f121f514f870c953633d00c6f$var$getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var $05873d0f121f514f870c953633d00c6f$var$getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+var $05873d0f121f514f870c953633d00c6f$var$getPrototypeOf = Object.getPrototypeOf;
+var $05873d0f121f514f870c953633d00c6f$var$objectPrototype = Object.prototype;
+function $05873d0f121f514f870c953633d00c6f$var$hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
+    if (typeof sourceComponent !== 'string') {
+        // don't hoist over string (html) components
+        if ($05873d0f121f514f870c953633d00c6f$var$objectPrototype) {
+            var inheritedComponent = $05873d0f121f514f870c953633d00c6f$var$getPrototypeOf(sourceComponent);
+            if (inheritedComponent && inheritedComponent !== $05873d0f121f514f870c953633d00c6f$var$objectPrototype) $05873d0f121f514f870c953633d00c6f$var$hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
+        }
+        var keys = $05873d0f121f514f870c953633d00c6f$var$getOwnPropertyNames(sourceComponent);
+        if ($05873d0f121f514f870c953633d00c6f$var$getOwnPropertySymbols) keys = keys.concat($05873d0f121f514f870c953633d00c6f$var$getOwnPropertySymbols(sourceComponent));
+        var targetStatics = $05873d0f121f514f870c953633d00c6f$var$getStatics(targetComponent);
+        var sourceStatics = $05873d0f121f514f870c953633d00c6f$var$getStatics(sourceComponent);
+        for(var i = 0; i < keys.length; ++i){
+            var key = keys[i];
+            if (!$05873d0f121f514f870c953633d00c6f$var$KNOWN_STATICS[key] && !(blacklist && blacklist[key]) && !(sourceStatics && sourceStatics[key]) && !(targetStatics && targetStatics[key])) {
+                var descriptor = $05873d0f121f514f870c953633d00c6f$var$getOwnPropertyDescriptor(sourceComponent, key);
+                try {
+                    // Avoid failures from read-only properties
+                    $05873d0f121f514f870c953633d00c6f$var$defineProperty(targetComponent, key, descriptor);
+                } catch (e) {
+                }
+            }
+        }
+    }
+    return targetComponent;
+}
+$05873d0f121f514f870c953633d00c6f$exports = $05873d0f121f514f870c953633d00c6f$var$hoistNonReactStatics;

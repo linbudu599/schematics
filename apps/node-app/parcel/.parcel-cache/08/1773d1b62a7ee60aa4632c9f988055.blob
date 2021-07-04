@@ -1,0 +1,126 @@
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _styledComponents = require("styled-components");
+var _styledComponentsDefault = parcelHelpers.interopDefault(_styledComponents);
+var _home = require("@/pages/home");
+var _homeDefault = parcelHelpers.interopDefault(_home);
+var _avatarJpg = require("url:./assets/avatar.jpg");
+var _avatarJpgDefault = parcelHelpers.interopDefault(_avatarJpg);
+var _s = $RefreshSig$();
+function _slicedToArray(arr, i) {
+    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+function _nonIterableRest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+function _arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+    for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
+    return arr2;
+}
+function _iterableToArrayLimit(arr, i) {
+    var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]);
+    if (_i == null) return;
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _s1, _e;
+    try {
+        for(_i = _i.call(arr); !(_n = (_s1 = _i.next()).done); _n = true){
+            _arr.push(_s1.value);
+            if (i && _arr.length === i) break;
+        }
+    } catch (err) {
+        _d = true;
+        _e = err;
+    } finally{
+        try {
+            if (!_n && _i["return"] != null) _i["return"]();
+        } finally{
+            if (_d) throw _e;
+        }
+    }
+    return _arr;
+}
+function _arrayWithHoles(arr) {
+    if (Array.isArray(arr)) return arr;
+}
+var StyledButton = _styledComponentsDefault.default.button.withConfig({
+    displayName: "App__StyledButton",
+    componentId: "sc-3riqn-0"
+})([
+    "text-align:center;width:190px;height:45px;font-size:20px;border-radius:6px;background-color:steelblue;color:white;border:0px;margin:0 auto;display:flex;align-items:center;justify-content:center;"
+]);
+_c = StyledButton;
+var CountPara = _styledComponentsDefault.default.p.withConfig({
+    displayName: "App__CountPara",
+    componentId: "sc-3riqn-1"
+})([
+    "text-align:center;font-size:32px;color:salmon;"
+]);
+_c1 = CountPara;
+var AvatarContainer = _styledComponentsDefault.default.div.withConfig({
+    displayName: "App__AvatarContainer",
+    componentId: "sc-3riqn-2"
+})([
+    "display:flex;justify-content:center;margin-bottom:25px;"
+]);
+_c2 = AvatarContainer;
+var Avatar = _styledComponentsDefault.default.img.withConfig({
+    displayName: "App__Avatar",
+    componentId: "sc-3riqn-3"
+})([
+    "width:350px;height:350px;border-radius:175px;"
+]);
+_c3 = Avatar;
+var App = function App1(_ref) {
+    _s();
+    var name = _ref.name;
+    var _useState = _react.useState(0), _useState2 = _slicedToArray(_useState, 2), count = _useState2[0], setCount = _useState2[1];
+    _react.useEffect(function() {
+    }, []);
+    return(/*#__PURE__*/ _reactDefault.default.createElement(_reactDefault.default.Fragment, null, /*#__PURE__*/ _reactDefault.default.createElement("h1", {
+        style: {
+            textAlign: 'center'
+        }
+    }, "Hi! ", name), /*#__PURE__*/ _reactDefault.default.createElement(CountPara, null, count), /*#__PURE__*/ _reactDefault.default.createElement(AvatarContainer, null, /*#__PURE__*/ _reactDefault.default.createElement(Avatar, {
+        src: _avatarJpgDefault.default
+    })), /*#__PURE__*/ _reactDefault.default.createElement(StyledButton, {
+        onClick: function onClick() {
+            setCount(function(c) {
+                return c + 1;
+            });
+        }
+    }, "Click to add count!"), /*#__PURE__*/ _reactDefault.default.createElement("div", null, /*#__PURE__*/ _reactDefault.default.createElement(_homeDefault.default, null))));
+};
+_s(App, "SKWEdFyxm34dsf9PjeCNDJSl/NQ=");
+_c4 = App;
+exports.default = App;
+var _c, _c1, _c2, _c3, _c4;
+$RefreshReg$(_c, "StyledButton");
+$RefreshReg$(_c1, "CountPara");
+$RefreshReg$(_c2, "AvatarContainer");
+$RefreshReg$(_c3, "Avatar");
+$RefreshReg$(_c4, "App");
+
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

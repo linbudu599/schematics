@@ -7,84 +7,22 @@
       "application": { "style": "none", "linter": "eslint", "babel": true },
       "component": { "style": "none" },
       "library": { "style": "none", "linter": "eslint" }
-    }
+    },
+    "@nrwl/web:application": {
+      "style": "less",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/web:library": {
+      "style": "less",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "nx-plugin-vitepress:init": {},
+    "nx-plugin-vitepress:setup": {}
   },
   "projects": {
-    "lib1": {
-      "root": "libs/lib1",
-      "sourceRoot": "libs/lib1/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": { "lintFilePatterns": ["libs/lib1/**/*.ts"] }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/lib1"],
-          "options": {
-            "jestConfig": "libs/lib1/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "node": {
-      "root": "apps/node",
-      "sourceRoot": "apps/node/src",
-      "projectType": "application",
-      "prefix": "node",
-      "targets": {
-        "build": {
-          "executor": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/node",
-            "main": "apps/node/src/main.ts",
-            "tsConfig": "apps/node/tsconfig.app.json",
-            "assets": ["apps/node/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/node/src/environments/environment.ts",
-                  "with": "apps/node/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "x": {
-          "executor": "nx-plugin-esbuild:build",
-          "options": {
-            "outputPath": "dist-test/apps/node",
-            "main": "apps/node/src/main.ts",
-            "tsConfig": "apps/node/tsconfig.app.json",
-            "watch": true
-          }
-        },
-        "serve": {
-          "executor": "@nrwl/node:execute",
-          "options": { "buildTarget": "node:build" }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": { "lintFilePatterns": ["apps/node/**/*.ts"] }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/node"],
-          "options": {
-            "jestConfig": "apps/node/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "nest-app": {
       "root": "apps/nest-app",
       "sourceRoot": "apps\\nest-app\\src",
@@ -93,28 +31,85 @@
         "x": {
           "executor": "nx-plugin-esbuild:build",
           "options": {
-            "outputPath": "dist-test/apps/nest-app",
             "main": "apps/nest-app/src/main.ts",
-            "tsConfig": "apps/nest-app/tsconfig.app.json",
-            "watch": false,
+            "outputPath": "dist-test/apps/nest-app",
+            "tsconfigPath": "apps/nest-app/tsconfig.app.json",
+            "pluginConfigPath": "apps/nest-app/nx-esbuild.ts",
+            "failFast": false,
+            "watch": true,
+            "skipTypeCheck": true,
+            "write": true,
+            "clearOutputPath": true,
+            "watchAssetsDir": false,
             "bundle": true,
+            "decoratorHandler": "tsc",
             "assets": [
               "apps/nest-app/src/assets",
               "apps/nest-app/src/my-assets"
             ],
+            "watchDir": "apps/nest-app/src",
+            "inject": ["./app/inject-module.ts"],
             "inserts": ["// SHOULD_AT_JS_BANNER"],
-            "fileReplacements": [
-              {
-                "replace": "apps/nest-app/src/environments/environment.ts",
-                "with": "apps/nest-app/src/environments/environment.prod.ts"
+            "define": { "DEBUG": "'true'", "DEBUG1": "'[]'" }
+          },
+          "configurations": {
+            "production": {
+              "alias": {
+                "./environments/environment": "D:/schematics/apps/nest-app/src/environments/environment.prod.ts"
               }
-            ],
-            "aliases": [
-              {
-                "from": "./environments/environment",
-                "to": "D:/schematics/apps/nest-app/src/environments/environment.prod.ts"
+            }
+          }
+        },
+        "tsx": {
+          "executor": "nx-plugin-esbuild:build",
+          "options": {
+            "main": "apps/nest-app/tsx-src/index.tsx",
+            "watchDir": "apps/nest-app/tsx-src",
+            "outputPath": "dist-test/apps/nest-app-tsx",
+            "tsconfigPath": "apps/nest-app/tsconfig.tsx.json",
+            "pluginConfigPath": "apps/nest-app/nx-esbuild.ts",
+            "failFast": false,
+            "watch": true,
+            "skipTypeCheck": false,
+            "write": true,
+            "clearOutputPath": false,
+            "watchAssetsDir": false,
+            "bundle": true,
+            "decoratorHandler": "tsc",
+            "inject": ["./app/inject-module.ts"],
+            "inserts": ["// SHOULD_AT_JS_BANNER"],
+            "define": { "DEBUG": "'true'", "DEBUG1": "'[]'" },
+            "externalDependencies": "none"
+          },
+          "configurations": {
+            "production": {
+              "alias": {
+                "./environments/environment": "D:/schematics/apps/nest-app/src/environments/environment.prod.ts"
               }
-            ]
+            }
+          }
+        },
+        "y": {
+          "executor": "nx-plugin-esbuild:serve",
+          "options": { "buildTarget": "nest-app:x" }
+        },
+        "w": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": { "command": "vite -v", "cwd": "D:/schematics" }
+        },
+        "s": {
+          "executor": "nx-plugin-workspace:node-serve",
+          "options": { "buildTarget": "nest-app:x" }
+        },
+        "yy-x": {
+          "executor": "nx-plugin-workspace:node-serve",
+          "options": { "buildTarget": "nest-app:x:production" }
+        },
+        "z": {
+          "executor": "nx-plugin-esbuild:info",
+          "options": {
+            "buildTarget": "nest-app:x",
+            "serveTarget": "nest-app:y"
           }
         },
         "build": {
@@ -140,35 +135,6 @@
             }
           }
         },
-        "koa-build": {
-          "executor": "nx-plugin-koa:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/nest-app",
-            "main": "apps/nest-app/src/main.ts",
-            "tsConfig": "apps/nest-app/tsconfig.app.json",
-            "assets": ["apps/nest-app/src/assets"],
-            "progress": true,
-            "verbose": true
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/nest-app/src/environments/environment.ts",
-                  "with": "apps/nest-app/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "koa-serve": {
-          "executor": "nx-plugin-koa:serve",
-          "options": { "buildTarget": "nest-app:build", "runtimeArgs": [] }
-        },
         "serve": {
           "executor": "@nrwl/node:execute",
           "options": { "buildTarget": "nest-app:build" }
@@ -184,6 +150,279 @@
             "jestConfig": "apps/nest-app/jest.config.js",
             "passWithNoTests": true
           }
+        }
+      }
+    },
+    "koa-app": {
+      "root": "apps/koa-app",
+      "sourceRoot": "apps/koa-app/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "nx-plugin-workspace:node-build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/koa-app",
+            "main": "apps/koa-app/src/main.ts",
+            "tsConfig": "apps/koa-app/tsconfig.app.json",
+            "assets": ["apps/koa-app/src/assets"],
+            "progress": true,
+            "verbose": true,
+            "enableAnalytics": true
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/koa-app/src/environments/environment.ts",
+                  "with": "apps/koa-app/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "nx-plugin-workspace:node-serve",
+          "options": { "buildTarget": "koa-app:build" },
+          "configurations": {}
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["apps/koa-app/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/koa-app"],
+          "options": {
+            "jestConfig": "apps/koa-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "node-app": {
+      "root": "apps/node-app",
+      "sourceRoot": "apps\\node-app\\src",
+      "projectType": "application",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["apps/node-app/**/*.ts"] }
+        },
+        "parcel": {
+          "executor": "nx-plugin-parcel:build",
+          "options": {
+            "cwd": "D:/schematics/apps/node-app/parcel",
+            "entryFiles": "./src/index.html"
+          }
+        },
+        "rollup": {
+          "executor": "nx-plugin-rollup:build",
+          "options": {
+            "entryFile": "apps/node-app/rollup/index.ts",
+            "outputPath": "apps/node-app/rollup/dist",
+            "tsconfigPath": "apps/node-app/tsconfig.app.json",
+            "watch": false
+          }
+        },
+        "sp": {
+          "executor": "nx-plugin-snowpack:serve",
+          "options": {
+            "root": "apps/node-app/snowpack",
+            "verbose": true,
+            "clearCache": true,
+            "open": "chrome"
+          }
+        },
+        "vite": {
+          "executor": "nx-plugin-vite:serve",
+          "options": {
+            "root": "apps/node-app/vite",
+            "configFile": "apps/node-app/vite/vite.config.ts",
+            "watch": true,
+            "outDir": "dist/vite-app",
+            "emitAtRootLevel": false,
+            "port": 5001
+          }
+        },
+        "vp": {
+          "executor": "nx-plugin-vitepress:build",
+          "options": {
+            "root": "apps/node-app/vitepress/docs",
+            "viteConfigPath": "apps/node-app/vitepress/vite.config.ts",
+            "watch": true
+          }
+        },
+        "vpd": {
+          "executor": "nx-plugin-vitepress:build",
+          "options": { "root": "apps/node-app/vp-docs", "watch": false }
+        },
+        "vuep": {
+          "executor": "nx-plugin-vuepress:build",
+          "options": {
+            "root": "apps/node-app/vuepress"
+          }
+        },
+        "dumi": {
+          "executor": "nx-plugin-dumi:build",
+          "options": { "cwd": "apps/node-app/dumi" }
+        },
+        "ice": {
+          "executor": "nx-plugin-ice:serve",
+          "options": {
+            "root": "D:/schematics/apps/node-app/ice-app"
+          }
+        },
+        "strapi": {
+          "executor": "nx-plugin-strapi:develop",
+          "options": {
+            "cwd": "D:/schematics/apps/node-app/strapi"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/node-app"],
+          "options": {
+            "jestConfig": "apps/node-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "nx-plugin-workspace:node-build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/node-app",
+            "main": "apps/node-app/src/main.ts",
+            "tsConfig": "apps/node-app/tsconfig.app.json",
+            "assets": ["apps/node-app/src/assets"],
+            "progress": true,
+            "verbose": true,
+            "enableAnalytics": false
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/node-app/src/environments/environment.ts",
+                  "with": "apps/node-app/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "nx-plugin-workspace:node-serve",
+          "options": { "buildTarget": "node-app:build" },
+          "configurations": {
+            "production": { "buildTarget": "node-app:build:production" }
+          }
+        },
+        "dev": {
+          "executor": "nx-plugin-workspace:light-node-serve",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "main": "apps/node-app/src/main.ts",
+            "tsConfig": "apps/node-app/tsconfig.app.json"
+          }
+        },
+        "exec": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "vite -v",
+            "cwd": "apps/node-app",
+            "parallel": false,
+            "color": true,
+            "outputPath": "dist/apps/node-app",
+            "preferLocal": false
+          }
+        }
+      }
+    },
+    "umi-app": {
+      "root": "apps/umi-app",
+      "sourceRoot": "apps/umi-app/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/umi-app",
+            "index": "apps/umi-app/src/index.html",
+            "main": "apps/umi-app/src/main.tsx",
+            "polyfills": "apps/umi-app/src/polyfills.ts",
+            "tsConfig": "apps/umi-app/tsconfig.app.json",
+            "assets": [
+              "apps/umi-app/src/favicon.ico",
+              "apps/umi-app/src/assets"
+            ],
+            "styles": [],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/umi-app/src/environments/environment.ts",
+                  "with": "apps/umi-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "x": { "executor": "nx-plugin-umi:serve", "options": {} },
+        "y": { "executor": "nx-plugin-umi:build", "options": {} },
+        "z": {
+          "executor": "nx-plugin-umi:info",
+          "options": {
+            "cwd": "apps/umi-app",
+            "plugin": false,
+            "webpack": true,
+            "version": false
+          }
+        }
+      }
+    },
+    "umi-app-e2e": {
+      "root": "apps/umi-app-e2e",
+      "sourceRoot": "apps/umi-app-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/umi-app-e2e/cypress.json",
+            "tsConfig": "apps/umi-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "umi-app:serve"
+          },
+          "configurations": {
+            "production": { "devServerTarget": "umi-app:serve:production" }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["apps/umi-app-e2e/**/*.{js,ts}"] }
         }
       }
     },
@@ -241,6 +480,10 @@
             "production": { "buildTarget": "react-app:build:production" }
           }
         },
+        "x": {
+          "executor": "nx-plugin-workspace:react-scripts",
+          "options": { "cwd": "apps/react-app" }
+        },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
@@ -276,104 +519,6 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": { "lintFilePatterns": ["apps/react-app-e2e/**/*.{js,ts}"] }
-        }
-      }
-    },
-    "koa": {
-      "root": "apps/koa",
-      "sourceRoot": "apps/koa/src",
-      "projectType": "application",
-      "targets": {
-        "build": {
-          "executor": "nx-plugin-koa:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/koa",
-            "main": "apps/koa/src/main.ts",
-            "tsConfig": "apps/koa/tsconfig.app.json",
-            "assets": ["apps/koa/src/assets"],
-            "progress": true,
-            "verbose": true
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/koa/src/environments/environment.ts",
-                  "with": "apps/koa/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "executor": "@nrwl/node:execute",
-          "options": { "buildTarget": "koa:build" },
-          "configurations": {}
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": { "lintFilePatterns": ["apps/koa/**/*.ts"] }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/koa"],
-          "options": {
-            "jestConfig": "apps/koa/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "koa-app": {
-      "root": "apps/koa-app",
-      "sourceRoot": "apps/koa-app/src",
-      "projectType": "application",
-      "targets": {
-        "build": {
-          "executor": "nx-plugin-koa:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/koa-app",
-            "main": "apps/koa-app/src/main.ts",
-            "tsConfig": "apps/koa-app/tsconfig.app.json",
-            "assets": ["apps/koa-app/src/assets"],
-            "progress": true,
-            "verbose": true
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/koa-app/src/environments/environment.ts",
-                  "with": "apps/koa-app/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "executor": "@nrwl/node:execute",
-          "options": { "buildTarget": "koa-app:build" },
-          "configurations": {}
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": { "lintFilePatterns": ["apps/koa-app/**/*.ts"] }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/koa-app"],
-          "options": {
-            "jestConfig": "apps/koa-app/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     }

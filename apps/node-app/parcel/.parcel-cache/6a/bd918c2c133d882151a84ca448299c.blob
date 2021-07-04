@@ -1,0 +1,16 @@
+var $1eb7373385d697ccedf14e7a49e0853c$export$40339995e8a21591;
+var $1eb7373385d697ccedf14e7a49e0853c$export$357eb1b4f03c1402;
+"use strict";
+var $1eb7373385d697ccedf14e7a49e0853c$var$mapping = {
+};
+function $1eb7373385d697ccedf14e7a49e0853c$var$register(pairs) {
+    var keys = Object.keys(pairs);
+    for(var i = 0; i < keys.length; i++)$1eb7373385d697ccedf14e7a49e0853c$var$mapping[keys[i]] = pairs[keys[i]];
+}
+function $1eb7373385d697ccedf14e7a49e0853c$var$resolve(id) {
+    var resolved = $1eb7373385d697ccedf14e7a49e0853c$var$mapping[id];
+    if (resolved == null) throw new Error('Could not resolve bundle with id ' + id);
+    return resolved;
+}
+$1eb7373385d697ccedf14e7a49e0853c$export$357eb1b4f03c1402 = $1eb7373385d697ccedf14e7a49e0853c$var$register;
+$1eb7373385d697ccedf14e7a49e0853c$export$40339995e8a21591 = $1eb7373385d697ccedf14e7a49e0853c$var$resolve;

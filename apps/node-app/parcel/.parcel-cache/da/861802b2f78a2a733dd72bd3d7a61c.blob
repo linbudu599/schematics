@@ -1,0 +1,6 @@
+import   "1aa993677f9a1ce83841d0659ba70c97:react";
+import   "1aa993677f9a1ce83841d0659ba70c97:react-dom";
+import   "1aa993677f9a1ce83841d0659ba70c97:./App";
+$1aa993677f9a1ce83841d0659ba70c97$import$9c1aa63963514e3e$792a797b69be0d58(/*#__PURE__*/ $1aa993677f9a1ce83841d0659ba70c97$import$f02ba03fc070e88c$2f8418d37d4320b9($1aa993677f9a1ce83841d0659ba70c97$import$61d22e895c1525a2$9099ad97b570f7c, {
+    name: "Developer"
+}), document.getElementById('root'));
